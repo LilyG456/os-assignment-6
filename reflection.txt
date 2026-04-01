@@ -1,0 +1,33 @@
+1. Stability as hogs increase
+
+As I increased the number of CPU hogs while using taskset, the interactive process remained very stable for most runs. 
+I tried 0 up to 50 hogs, and the elapsed time consistently stayed close to 300 ms. \
+The jitter also was very low (between 0.06 ms and 0.15 ms).
+This shows that the system is able to maintain responsiveness even under significant CPU load.
+
+2. When did instability appear?
+
+It was rare to have instability, when I ran it.
+The largest was when I ran 12 hogs, and one click had elapsed = 301.889 ms and jitter = 1.889 ms.
+
+3. Perception
+
+I didn't notice much lag. I think I noticed a bit when the jitter value was greater than 1 ms.
+
+Even when I increased the number of hogs significantly (16, 24, 30, and 50), the system was mostly stable, with the jitter being low and consistent. 
+
+4. Prioritization
+
+Based on what I observed, the Linux CFS appears to prioritize a combination of 
+Fairness, ensuring all processes get CPU time, and responsiveness, low latency, for interactive processes.
+
+CFS maintains responsiveness by tracking how much CPU time each process has used and prioritizing processes that have used less CPU time.
+
+In this assignment, the CPU hogs continuously consumed most of the CPU time, 
+while the interactive process spent most of its time sleeping.
+When the interactive process woke up, it had used very little CPU time, 
+so the scheduler gave it priority over the CPU-bound processes.
+This allowed the interactive process to run almost immediately,
+keeping jitter low even when many CPU hogs were present. 
+Occasional spikes in jitter occurred when there was more contention, 
+but overall, the responsiveness of the system was maintained.

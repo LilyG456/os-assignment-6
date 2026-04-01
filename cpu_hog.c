@@ -5,6 +5,13 @@
  *
  */
 
+ #include <stdio.h>
+
 int main() {
-    // TODO - write a CPU bound program. Nothing fancy.
+    long x = 1;
+    while (1)
+    {
+        x = x * 2;
+    }
+    return 0;  
 }
